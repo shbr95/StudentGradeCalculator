@@ -1,0 +1,18 @@
+FROM --platform=linux/amd64  golang:1.12-alpine
+
+RUN apk add --no-cache git
+
+WORKDIR /app
+
+COPY ./src /app
+
+EXPOSE 84
+
+RUN go build -o app .
+## Our start command which kicks off
+## our newly created binary executable
+CMD ["/app/app"]
+
+
+
+

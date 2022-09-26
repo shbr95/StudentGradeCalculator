@@ -1,0 +1,54 @@
+stages:
+  - test
+
+test-studentgradechecker-total:
+  image: ubuntu:18.04
+  stage: test
+  script:
+   - apt-get update -qy
+   - apt-get install -y python3-pip python3
+   - cd studentgradechecker-total
+   - pip3 install -r requirements.txt
+   - cd src
+   - python3 -m unittest  test
+
+test-studentgradechecker-sortmodules:
+  image: php:7.3
+  stage: test
+  script:
+  - cd studentgradechecker-sortmodules
+  - php phpunit src/test.php
+
+test-studentgradechecker-maxmin:
+  image: php:7.3
+  stage: test
+  script:
+  - cd studentgradechecker-maxmin
+  - php phpunit src/test.php
+
+test-studentgradechecker-compare:
+  image: php:7.3
+  stage: test
+  script:
+  - cd studentgradechecker-compare
+  - php phpunit src/test.php
+
+test-studentgradechecker-classification:
+  image: golang:1.12
+  stage: test
+  script:
+  - cd studentgradechecker-classification/src
+  - export GO111MODULE=off 
+  - go test
+
+test-studentgradechecker-median:
+  image: node:10
+  stage: test
+  script:
+  - cd studentgradechecker-median/src
+  - npm install
+  - npm install express
+  - npm install --global mocha
+  - npm install --save request
+  - cd test
+  - npm test

@@ -1,0 +1,19 @@
+{
+    "name": "studentgradechecker-median",
+    "version": "1.0.0",
+    "description": "Student grade checker media",
+    "author": "Shaun Brocklehurst",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "mocha --exit "
+    },
+    "dependencies": {
+        "express": "^4.18.1",
+        "request": "^2.88.2"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "mocha": "^6.2.3"
+    }
+}

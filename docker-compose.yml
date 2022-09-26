@@ -1,0 +1,75 @@
+version: "3.9"
+services:
+  front-end:
+    build: "studentgradechecker-frontend"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/frontend
+    ports:
+      - "80:80"
+  maxmin:
+    build: "studentgradechecker-maxmin"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/maxmin
+    ports:
+      - "81:80"
+  sortmodules:
+    build: "studentgradechecker-sortmodules"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/sortmodules
+    ports:
+      - "82:80"
+  total:
+    build: "studentgradechecker-total"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/total
+    ports:
+      - "83:80"
+  classification:
+    build: "studentgradechecker-classification"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/classification
+    ports:
+      - "84:80"
+  compare:
+    build: "studentgradechecker-compare"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/compare
+    ports:
+      - "85:80"
+  monitoring:
+    build: "studentgradechecker-monitoring"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/monitoring
+    ports:
+      - "86:80"
+  median:
+    build: "studentgradechecker-median"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/median
+    ports:
+      - "89:80"
+  proxy:
+    build: "studentgradechecker-proxy"
+    image: registry.hal.davecutting.uk/40322903/studentgradecalculatortest/proxy
+    ports:
+      - "5000:80"
+
+  db:
+    platform: linux/x86_64
+    image: mysql
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: studentgradechecker-db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+volumes:
+  dbdata:
