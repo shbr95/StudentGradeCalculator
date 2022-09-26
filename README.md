@@ -1,1 +1,1 @@
-# StudentGradeCalculator
+# StudentGradeChecker
